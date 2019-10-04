@@ -119,6 +119,8 @@ export class KinesisStack extends cdk.Stack {
     
     deliveryStream.node.addDependency(firehoseRole);
     deliveryStream.node.addDependency(firehosePolicy);
+    deliveryStream.node.addDependency(firehoseBucket);
+    deliveryStream.node.addDependency(inputStream);
 
     // Please note that the exportName could be referenced by any other external stacks
     // So exportName should be unique globally

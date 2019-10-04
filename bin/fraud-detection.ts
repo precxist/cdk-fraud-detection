@@ -18,4 +18,4 @@ const lambdaStack = new LambdaStack(
     {stackName: 'fraud-detection-lambda-stack'}
 );
 
-lambdaStack.addDependency(kinesisStack);
+// kinesisStack.addDependency(lambdaStack);

@@ -56,6 +56,15 @@ export class LambdaStack extends cdk.Stack {
         // PRIMARY_KEY: config.rigTablePartitionKey
       },
     });
+
+     // Please note that the exportName could be referenced by any other external stacks
+    // So exportName should be unique globally
+    const lambdaArnExportName = "lambda-ARN";
+
+    new cdk.CfnOutput(this, lambdaArnExportName, {
+      value: fraudDetectionLambda.functionArn,
+      exportName: lambdaArnExportName
+    })
     /*****************************************/
     /************** Lambda - End *************/
     /*****************************************/
