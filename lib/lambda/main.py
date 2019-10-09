@@ -18,6 +18,8 @@ def handler(event, context):
     
     pred_scores = sagemaker_client.predict(pred_rows).split(",")
     num_rows = len(pred_rows)
+
+    fraud_list = []
     
     for i in range(num_rows):
         fraud_score = float(pred_scores[i])
@@ -28,6 +30,8 @@ def handler(event, context):
         })
         
         if is_fraud:
-            sns_client.publish_fraud_msg(transaction_list[i]["transaction_id"])
+            fraud_list.append(transaction_list[i]["transaction_id"])
+        
+    sns_client.publish_fraud_msg(fraud_list)
     
     return "Success"
