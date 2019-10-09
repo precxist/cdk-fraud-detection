@@ -1,0 +1,22 @@
+diff --git a/node_modules/@aws-cdk/aws-lambda-event-sources/lib/stream.d.ts b/node_modules/@aws-cdk/aws-lambda-event-sources/lib/stream.d.ts
+index cb0ff5c..5a5027d 100644
+--- a/node_modules/@aws-cdk/aws-lambda-event-sources/lib/stream.d.ts
++++ b/node_modules/@aws-cdk/aws-lambda-event-sources/lib/stream.d.ts
+@@ -1 +1,15 @@
+-export {};
++import lambda = require('@aws-cdk/aws-lambda');
++import cdk = require('@aws-cdk/core');
++export interface StreamEventSourceProps {
++  readonly batchSize?: number;
++  readonly startingPosition: lambda.StartingPosition;
++  readonly maxBatchingWindow?: cdk.Duration;
++}
++
++export declare abstract class StreamEventSource implements lambda.IEventSource {
++  readonly props: StreamEventSourceProps;
++
++  protected constructor(props: StreamEventSourceProps);
++  public bind(_target: lambda.IFunction): void;
++  protected enrichMappingOptions(options: lambda.EventSourceMappingOptions): lambda.EventSourceMappingOptions;
++}
+\ No newline at end of file
