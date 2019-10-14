@@ -5,6 +5,7 @@ import json
 
 import sagemaker_client
 import sns_client
+import s3_client
 
 
 def handler(event, context):
@@ -31,7 +32,8 @@ def handler(event, context):
         
         if is_fraud:
             fraud_list.append(transaction_list[i]["transaction_id"])
-        
+    
+    s3_client.save_result_to_s3(transaction_list)
     sns_client.publish_fraud_msg(fraud_list)
     
     return "Success"
