@@ -89,7 +89,7 @@ export class LambdaStack extends cdk.Stack {
 
     fraudDetectionLambda.addEventSource(
       new KinesisEventSource(inputStream, {
-        batchSize: 100, // default
+        batchSize: 1000, // default
         startingPosition: lambda.StartingPosition.TRIM_HORIZON
       })
     );

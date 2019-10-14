@@ -2,6 +2,7 @@ from __future__ import print_function
 
 import base64
 import json
+import time
 
 import sagemaker_client
 import sns_client
@@ -9,6 +10,7 @@ import s3_client
 
 
 def handler(event, context):
+    start_at = time.time()
     pred_rows = []
     transaction_list = []
     
@@ -35,5 +37,7 @@ def handler(event, context):
     
     s3_client.save_result_to_s3(transaction_list)
     sns_client.publish_fraud_msg(fraud_list)
+
+    print("%.4fsec elapsed for %d transactions" % (time.time() - start_at, num_rows))
     
     return "Success"
