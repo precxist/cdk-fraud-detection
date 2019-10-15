@@ -26,11 +26,15 @@ def handler(event, context):
     
     for i in range(num_rows):
         fraud_score = float(pred_scores[i])
-        is_fraud = fraud_score >= 0.5
+        if fraud_score >= 0.5:
+            is_fraud = "Y"
+        else:
+            is_fraud = "N"
         transaction_list[i].update({
             "score": fraud_score,
-            "is_fraud": int(is_fraud)
+            "is_fraud": is_fraud,
         })
+        transaction_list[i].pop("row")
         
         if is_fraud:
             fraud_list.append(transaction_list[i]["transaction_id"])
